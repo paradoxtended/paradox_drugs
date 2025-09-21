@@ -16,3 +16,7 @@ export function LoadJsonFile<T = unknown>(path: string): T {
 
   return resp.then((response) => response.json()) as T;
 }
+
+export function ClearObject(obj: Record<string, any>) {
+  Object.keys(obj).forEach((key) => delete obj[key]);
+}

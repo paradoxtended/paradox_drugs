@@ -1,3 +1,17 @@
 {
-  "EnableNuiCommand": true
+  "Accounts": [
+    "money", "bank"
+  ],
+  "Shop": {
+    "Model": [ "a_m_y_soucent_02", "a_m_y_soucent_03" ],
+    "Locations": [
+      { "Coords": [ 88.2611, 3714.0259, 39.7550, 238.9598 ], "Scenario": "WORLD_HUMAN_LEANING" }
+    ],
+    "Items": [
+      { "Name": "empty_bag", "Price": 15 },
+      { "Name": "trowel", "Price": 75 },
+      { "Name": "weed_papers", "Price": 125 },
+      { "Name": "weed_seed", "Price": 200 }
+    ]
+  }
 }

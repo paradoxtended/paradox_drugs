@@ -5,17 +5,10 @@ import { createBuilder, createFxmanifest } from '@overextended/fx-utils';
 
 const watch = process.argv.includes('--watch');
 const web = await exists('./web');
-const dropLabels = ['$BROWSER'];
-
-if (!watch) dropLabels.push('$DEV');
 
 createBuilder(
   watch,
   {
-    keepNames: true,
-    legalComments: 'inline',
-    bundle: true,
-    treeShaking: true,
   },
   [
     {
@@ -24,16 +17,16 @@ createBuilder(
         platform: 'node',
         target: ['node22'],
         format: 'cjs',
-        dropLabels: [...dropLabels, '$CLIENT'],
+        dropLabels: ['$BROWSER', '$CLIENT'],
       },
     },
     {
       name: 'client',
       options: {
         platform: 'browser',
-        target: ['es2021'], 
+        target: ['es2023'], 
         format: 'iife',
-        dropLabels: [...dropLabels, '$SERVER'],
+        dropLabels: ['$BROWSER', '$SERVER'],
       },
     },
   ],
@@ -42,16 +35,15 @@ createBuilder(
     await createFxmanifest({
       client_scripts: [outfiles.client],
       server_scripts: [outfiles.server],
-      files: ['lib/init.lua', 'lib/client/**.lua', 'locales/*.json', ...files],
-      dependencies: ['/server:13068', '/onesync'],
+      files: ['locales/*.json', ...files],
+      dependencies: ['/server:13068', '/onesync', 'oxmysql', 'ox_lib', 'ox_target'],
       metadata: {
         ui_page: 'dist/web/index.html',
+        lua54: 'yes',
         node_version: '22'
       },
     });
-
-    if (web && !watch) await exec("cd ./web && vite build");
   }
 );
 
-if (web && watch) await exec("cd ./web && vite build --watch");
+if (web) await exec(`cd ./web && vite build ${watch ? '--watch' : ''}`);

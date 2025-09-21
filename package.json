@@ -40,6 +40,7 @@
 	"dependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@nativewrappers/fivem": "latest",
+		"@overextended/ox_lib": "^3.30.6",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"tailwind-merge": "^3.3.1"
