@@ -1,5 +1,23 @@
 import Config from '@static/config.json';
-import { requestModel, Point } from '@overextended/ox_lib/client';
+import { requestModel, Point, locale, registerContext, showContext } from '@overextended/ox_lib/client';
+
+function OpenMenu() {
+    let options: any[] = [];
+
+    Config.Shop.Items.map(item => {
+        options.push({
+            
+        })
+    })
+
+    registerContext({
+        title: locale('dealer'),
+        id: 'paradox_drugs:pedMenu',
+        options: options
+    })
+
+    showContext('paradox_drugs:pedMenu')
+}
 
 async function CreateShop(coords: number[], model: string, anim: string = "WORLD_HUMAN_AA_COFFEE") {
     if (!IsModelValid(model))
@@ -19,7 +37,9 @@ async function CreateShop(coords: number[], model: string, anim: string = "WORLD
         TaskStartScenarioInPlace(ped, anim, 0, true);
 
         exports.ox_target.addLocalEntity(ped, {
-            label: "YOOO"
+            label: locale('talk'),
+            icon: 'fa-solid fa-comment',
+            onSelect: () => OpenMenu
         })
     }
 
